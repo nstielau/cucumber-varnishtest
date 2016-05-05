@@ -1,4 +1,4 @@
-### Varnishtest Cucumber
+# Varnishtest Cucumber
 
 This let's you use Gherkin, the language of BDD, to write behavior-level checks for your VCL.
 
@@ -9,23 +9,6 @@ To run, simply run `cucumber` from this directory.
 You can write your own scenarios in a .feature file
 
 ```
-±  |master ✗| → cucumber --name warming
-Feature: Static Server Headers
-
-  Scenario: Multiple Requests without warming # features/varnishtest.feature:23
-    Given varnish running with default.vcl    # features/step_definitions/varnish_steps.rb:3
-    When we request /images2.png              # features/step_definitions/varnish_steps.rb:7
-    And we request /images.png                # features/step_definitions/varnish_steps.rb:7
-    And we request /images.png                # features/step_definitions/varnish_steps.rb:7
-    Then there should be 2 cache misses       # features/step_definitions/varnish_steps.rb:43
-    Then there should be 1 cache hits         # features/step_definitions/varnish_steps.rb:39
-    And it should pass varnishtest            # features/step_definitions/varnish_steps.rb:27
-
-1 scenario (1 passed)
-7 steps (7 passed)
-0m2.713s
-
-|system|ruby 2.0.0p481 perzoso in ~/Documents/pantheon/cucumber
 ±  |master ✗| → cucumber
 Feature: Static Server Headers
 
