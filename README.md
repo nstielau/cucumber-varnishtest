@@ -6,7 +6,7 @@ This let's you use Gherkin, the language of BDD, to write behavior-level checks 
 
 To run, simply run `cucumber` from this directory.
 
-You can write your own scenarios in a .feature file
+You can use your own VCL and write your own features in a .feature file.
 
 ```
 ±  |master ✗| → cucumber
@@ -53,6 +53,17 @@ Feature: Static Server Headers
 
 ```
 
+## How to use your own VCL
+
+Simply put the .vcl file in this directory, and specify in your
+`Given` clause of your Scenario:
+
+```
+Scenario: Multiple Requests without warming
+  Given varnish running with MyCustomConfig.vcl
+  When we request /images.png
+  Then it should pass varnishtest
+```
 
 ## Dependencies
 
