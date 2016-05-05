@@ -24,7 +24,9 @@ Feature: Static Server Headers
     Given varnish running with default.vcl
     When we request /images2.png
     And we request /images.png
+    And we request /images.png
     Then there should be 2 cache misses
+    Then there should be 1 cache hits
     And it should pass varnishtest
 
   Scenario: Check Dynamic header

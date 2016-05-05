@@ -9,6 +9,23 @@ To run, simply run `cucumber` from this directory.
 You can write your own scenarios in a .feature file
 
 ```
+±  |master ✗| → cucumber --name warming
+Feature: Static Server Headers
+
+  Scenario: Multiple Requests without warming # features/varnishtest.feature:23
+    Given varnish running with default.vcl    # features/step_definitions/varnish_steps.rb:3
+    When we request /images2.png              # features/step_definitions/varnish_steps.rb:7
+    And we request /images.png                # features/step_definitions/varnish_steps.rb:7
+    And we request /images.png                # features/step_definitions/varnish_steps.rb:7
+    Then there should be 2 cache misses       # features/step_definitions/varnish_steps.rb:43
+    Then there should be 1 cache hits         # features/step_definitions/varnish_steps.rb:39
+    And it should pass varnishtest            # features/step_definitions/varnish_steps.rb:27
+
+1 scenario (1 passed)
+7 steps (7 passed)
+0m2.713s
+
+|system|ruby 2.0.0p481 perzoso in ~/Documents/pantheon/cucumber
 ±  |master ✗| → cucumber
 Feature: Static Server Headers
 
@@ -18,22 +35,39 @@ Feature: Static Server Headers
     Then the response code should be 200   # features/step_definitions/varnish_steps.rb:35
     And it should pass varnishtest         # features/step_definitions/varnish_steps.rb:27
 
-  Scenario: Checking Response Headers                     # features/varnishtest.feature:9
-    Given varnish running with default.vcl                # features/step_definitions/varnish_steps.rb:3
-    When we request /images.png                           # features/step_definitions/varnish_steps.rb:7
-    Then the header X-Served-By should be "My App Server" # features/step_definitions/varnish_steps.rb:23
-    And it should pass varnishtest                        # features/step_definitions/varnish_steps.rb:27
+  Scenario: Checking Response Headers                              # features/varnishtest.feature:9
+    Given varnish running with default.vcl                         # features/step_definitions/varnish_steps.rb:3
+    When we request /images.png                                    # features/step_definitions/varnish_steps.rb:7
+    Then the response header X-Served-By should be "My App Server" # features/step_definitions/varnish_steps.rb:23
+    And it should pass varnishtest                                 # features/step_definitions/varnish_steps.rb:27
 
   Scenario: Multiple Requests              # features/varnishtest.feature:15
     Given varnish running with default.vcl # features/step_definitions/varnish_steps.rb:3
     When we request /images.png            # features/step_definitions/varnish_steps.rb:7
     And we request /images.png             # features/step_definitions/varnish_steps.rb:7
-    Then the response length should be 11  # features/step_definitions/varnish_steps.rb:19
+    Then there should be 1 cache hits      # features/step_definitions/varnish_steps.rb:39
+    And there should be 1 cache misses     # features/step_definitions/varnish_steps.rb:43
     And it should pass varnishtest         # features/step_definitions/varnish_steps.rb:27
 
-3 scenarios (3 passed)
-13 steps (13 passed)
-0m4.873s
+  Scenario: Multiple Requests without warming # features/varnishtest.feature:23
+    Given varnish running with default.vcl    # features/step_definitions/varnish_steps.rb:3
+    When we request /images2.png              # features/step_definitions/varnish_steps.rb:7
+    And we request /images.png                # features/step_definitions/varnish_steps.rb:7
+    And we request /images.png                # features/step_definitions/varnish_steps.rb:7
+    Then there should be 2 cache misses       # features/step_definitions/varnish_steps.rb:43
+    Then there should be 1 cache hits         # features/step_definitions/varnish_steps.rb:39
+    And it should pass varnishtest            # features/step_definitions/varnish_steps.rb:27
+
+  Scenario: Check Dynamic header                                     # features/varnishtest.feature:32
+    Given varnish running with default.vcl                           # features/step_definitions/varnish_steps.rb:3
+    When we request /monalisa.png                                    # features/step_definitions/varnish_steps.rb:7
+    Then the response header X-Requested-URL should be /monalisa.png # features/step_definitions/varnish_steps.rb:23
+    And it should pass varnishtest                                   # features/step_definitions/varnish_steps.rb:27
+
+5 scenarios (5 passed)
+25 steps (25 passed)
+0m7.568s
+
 ```
 
 
