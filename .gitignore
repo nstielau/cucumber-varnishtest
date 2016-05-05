@@ -1,1 +1,5 @@
+# This is the .varnishtest file that is 
+# generated via Cucumber.
 generated.varnishtest
+
+Gemfile.lock

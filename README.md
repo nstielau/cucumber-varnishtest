@@ -59,13 +59,16 @@ Feature: Static Server Headers
 Make sure you have 'varnishtest' installed!
 
 ```
+# On OSX
 brew install varnish
 ```
 
 Install cucumber
 
 ```
-gem install cucumber
+gem install bundler
+bundle install
+bundle exec cucumber --version
 ```
 
 ## References
