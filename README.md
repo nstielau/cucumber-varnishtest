@@ -71,7 +71,21 @@ Make sure you have 'varnishtest' installed!
 
 ```
 # On OSX
-brew install varnish
+$ brew install varnish
+$ varnishtest -h
+usage: varnishtest [options] file ...
+    -b size                      # Set internal buffer size (default: 512K)
+    -D name=val                  # Define macro
+    -i                           # Find varnishd in build tree
+    -j jobs                      # Run this many tests in parallel
+    -k                           # Continue on test failure
+    -L                           # Always leave temporary vtc.*
+    -l                           # Leave temporary vtc.* if test fails
+    -n iterations                # Run tests this many times
+    -q                           # Quiet mode: report only failures
+    -t duration                  # Time tests out after this long
+    -v                           # Verbose mode: always report test log
+    -W                           # Enable the witness facility for locking
 ```
 
 Install cucumber
