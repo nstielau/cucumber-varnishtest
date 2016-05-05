@@ -1,6 +1,7 @@
 require './lib/varnishtest_context_manager'
 
 Given(/^varnish running with (.*)$/) do |vcl_file|
+  # Load  a particular varnish VCL file
   VarnishTestContextManager.instance.vcl_file vcl_file
 end
 
@@ -28,22 +29,23 @@ Then(/^it should pass varnishtest$/) do
   VarnishTestContextManager.instance.test!
 end
 
-Then(/^the server should receive (\d+) request$/) do |request_count|
-  VarnishTestContextManager.instance.desired_request_count request_count
-end
-
 Then(/^the response code should be (\d+)$/) do |code|
   VarnishTestContextManager.instance.client_expect "resp.status", 200
 end
 
-Then(/^there should be (\d+) cache hits$/) do |expected_cache_hits|
-  VarnishTestContextManager.instance.expected_cache_hits expected_cache_hits
+Then(/^the server should receive (\d+) requests$/) do |count|
+  VarnishTestContextManager.instance.desired_request_count count
 end
 
-Then(/^there should be (\d+) cache misses$/) do |expected_cache_misses|
-  VarnishTestContextManager.instance.expected_cache_misses expected_cache_misses
+Then(/^there should be (\d+) cache hits$/) do |count|
+  VarnishTestContextManager.instance.expected_cache_hits count
+end
+
+Then(/^there should be (\d+) cache misses$/) do |count|
+  VarnishTestContextManager.instance.expected_cache_misses count
 end
 
 After do |scenario|
+  # Reset the context manager for a fresh scenario
   VarnishTestContextManager.reset!
 end
