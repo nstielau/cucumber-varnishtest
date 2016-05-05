@@ -1,8 +1,12 @@
-### Gherkiny Varnishtest
+### Varnishtest Cucumber
 
-This let's you use Gherkin, the language of BDD to write behavior-level checks for your VCL.
+This let's you use Gherkin, the language of BDD, to write behavior-level checks for your VCL.
 
-To run:
+## To run
+
+To run, simply run `cucumber` from this directory.
+
+You can write your own scenarios in a .feature file
 
 ```
 ±  |master ✗| → cucumber
@@ -32,8 +36,23 @@ Feature: Static Server Headers
 0m4.873s
 ```
 
+
+## Dependencies
+
 Make sure you have 'varnishtest' installed!
 
 ```
 brew install varnish
 ```
+
+Install cucumber
+
+```
+gem install cucumber
+```
+
+## References
+
+Read more about varnish test at
+* http://www.clock.co.uk/blog/getting-started-with-varnishtest
+* http://blog.zenika.com/2012/08/27/introducing-varnishtest/
