@@ -2,4 +2,8 @@
 # generated via Cucumber.
 generated.varnishtest
 
+# This is the output of failed
+# varnishtest runs
+varnishtest.err
+
 Gemfile.lock

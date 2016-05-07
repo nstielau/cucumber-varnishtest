@@ -20,12 +20,18 @@ Feature: Static Server Headers
     And there should be 1 cache misses
     And it should pass varnishtest
 
+  Scenario: POST should never be cached
+    Given varnish running with default.vcl
+    When we POST /form
+    Then there should be 1 passed requests
+    And it should pass varnishtest
+
   Scenario: Multiple Requests without warming
     Given varnish running with default.vcl
-    When we request /images2.png
+    When we POST /images2.png
+    And we GET /images.png
     And we request /images.png
-    And we request /images.png
-    Then there should be 2 cache misses
+    Then there should be 1 cache misses
     Then there should be 1 cache hits
     And it should pass varnishtest
 

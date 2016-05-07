@@ -3,6 +3,12 @@ class VarnishTestContextManager
 
   VARNISHTEST_FILE = "generated.varnishtest"
 
+  attr_writer :expected_cache_hits
+  attr_writer :expected_cache_misses
+  attr_writer :expected_request_count
+  attr_writer :expected_piped_requests
+  attr_writer :expected_passed_requests
+
   def self.instance()
     @instance ||= self.new()
   end
@@ -25,9 +31,9 @@ class VarnishTestContextManager
     get_context << info
   end
 
-  def request(path)
+  def request(path, method)
     @requests ||= []
-    @requests << path
+    @requests << VarnishtestRequest.new(path, method)
   end
 
   def client_expect(attribute, value)
@@ -35,19 +41,7 @@ class VarnishTestContextManager
     @client_expectations[attribute] = value
   end
 
-  def expected_cache_hits(count)
-    @expected_cache_hits = count
-  end
-
-  def expected_cache_misses(count)
-    @expected_cache_misses = count
-  end
-
-  def desired_request_count(request_count)
-    @request_count = request_count
-  end
-
-  def vcl_file filename
+  def vcl_file(filename)
     @vcl_file ||=filename
   end
 
@@ -65,7 +59,7 @@ class VarnishTestContextManager
 
     client c1 {
       #{
-        (@requests || []).map{|path| "txreq -url \"#{path}\"\nrxresp\n"}.join("\n\n")
+        (@requests || []).map{|req| req.to_varnishtest}.join("\n\n")
       }
 
       #{
@@ -77,6 +71,9 @@ class VarnishTestContextManager
 
     #{@expected_cache_hits.nil? ? "" : "varnish v1 -expect cache_hit == #{@expected_cache_hits}"}
     #{@expected_cache_misses.nil? ? "" : "varnish v1 -expect cache_miss == #{@expected_cache_misses}"}
+    #{@expected_request_count.nil? ? "" : "varnish v1 -expect client_req == #{@expected_request_count}"}
+    #{@expected_piped_requests.nil? ? "" : "varnish v1 -expect s_pipe == #{@expected_piped_requests}"}
+    #{@expected_passed_requests.nil? ? "" : "varnish v1 -expect s_pass == #{@expected_passed_requests}"}
     eos
   end
 
@@ -87,10 +84,13 @@ class VarnishTestContextManager
     output = `varnishtest #{VARNISHTEST_FILE}`
     result = $? == 0
 
+    File.open('varnishtest.err', 'w') do |file|
+      file.write(output)
+    end
+
     raise [
-      result,
-      output,
-      varnishtest_conf
+      output.split("\n").select{|line| line.match("---- v1")},
+      "See #{VARNISHTEST_FILE} and varnishtest.err debuggin'"
     ].join("\n\n\n\n") unless result
   end
 end
