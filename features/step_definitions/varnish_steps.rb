@@ -3,7 +3,7 @@ require './lib/varnishtest_request'
 
 Given(/^varnish running with (.*)$/) do |vcl_file|
   # Load  a particular varnish VCL file
-  VarnishTestContextManager.instance.vcl_file vcl_file
+  VarnishTestContextManager.instance.vcl_file = vcl_file
 end
 
 When(/^we (GET|POST) (.*)$/) do |method, path|

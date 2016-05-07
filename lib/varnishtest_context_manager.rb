@@ -10,6 +10,8 @@ class VarnishTestContextManager
   attr_writer :expected_piped_requests
   attr_writer :expected_passed_requests
 
+  attr_writer :vcl_file
+
   def self.instance()
     # Get instance from class
     @instance ||= self.new()
@@ -41,10 +43,6 @@ class VarnishTestContextManager
   def client_expect(attribute, value)
     @client_expectations ||= {}
     @client_expectations[attribute] = value
-  end
-
-  def vcl_file(filename)
-    @vcl_file ||=filename
   end
 
   def varnishtest_conf
