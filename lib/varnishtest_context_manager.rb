@@ -3,6 +3,7 @@ class VarnishTestContextManager
 
   VARNISHTEST_FILE = "generated.varnishtest"
 
+  # Server level expectations
   attr_writer :expected_cache_hits
   attr_writer :expected_cache_misses
   attr_writer :expected_request_count
@@ -10,6 +11,7 @@ class VarnishTestContextManager
   attr_writer :expected_passed_requests
 
   def self.instance()
+    # Get instance from class
     @instance ||= self.new()
   end
 

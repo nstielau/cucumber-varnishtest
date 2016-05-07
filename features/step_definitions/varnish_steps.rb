@@ -6,10 +6,6 @@ Given(/^varnish running with (.*)$/) do |vcl_file|
   VarnishTestContextManager.instance.vcl_file vcl_file
 end
 
-When(/^we request (.*)$/) do |path|
-  VarnishTestContextManager.instance.request path, 'GET'
-end
-
 When(/^we (GET|POST) (.*)$/) do |method, path|
   VarnishTestContextManager.instance.request path, method
 end
