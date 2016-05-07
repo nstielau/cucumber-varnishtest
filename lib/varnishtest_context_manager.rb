@@ -27,10 +27,6 @@ class VarnishTestContextManager
     return @context
   end
 
-  def inspect
-    @context.inspect
-  end
-
   def add_context(info)
     get_context << info
   end
