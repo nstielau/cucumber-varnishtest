@@ -24,7 +24,7 @@ Feature: Static Server Headers
     And we GET /images2.png
     And we GET /images2.png
     Then there should be 2 cache misses
-    Then there should be 1 cache hits
+    Then there should be 1 cache hit
     And it should pass varnishtest
 
   Scenario: Check Dynamic header

@@ -38,7 +38,7 @@ Then(/^the server should receive (\d+) requests$/) do |count|
   VarnishTestContextManager.instance.expected_request_count = count
 end
 
-Then(/^there should be (\d+) cache hits$/) do |count|
+Then(/^there should be (\d+) cache hit[s]*$/) do |count|
   VarnishTestContextManager.instance.expected_cache_hits = count
 end
 
@@ -46,11 +46,11 @@ Then(/^there should be (\d+) cache misses$/) do |count|
   VarnishTestContextManager.instance.expected_cache_misses = count
 end
 
-Then(/^there should be (\d+) piped requests$/) do |count|
+Then(/^there should be (\d+) piped request[s]*$/) do |count|
   VarnishTestContextManager.instance.expected_piped_requests = count
 end
 
-Then(/^there should be (\d+) passed requests$/) do |count|
+Then(/^there should be (\d+) passed request[s]*$/) do |count|
   VarnishTestContextManager.instance.expected_passed_requests = count
 end
 
