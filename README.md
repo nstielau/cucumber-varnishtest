@@ -1,6 +1,16 @@
 # Varnishtest Cucumber
 
-This let's you use Gherkin, the language of BDD, to write behavior-level checks for your VCL.
+This let's you use Gherkin, the language of BDD, to write behavior-level
+checks for your VCL.
+
+## Project status
+This is currently a Proof of Concept.  
+
+I think this is probably the easiest/best way to get started with
+testing your Varnish config, but it might take a bit of extended as
+you test out your use-cases.  
+
+Definitely fork and don't rely on this code not changing, though ;)
 
 ## To run
 
