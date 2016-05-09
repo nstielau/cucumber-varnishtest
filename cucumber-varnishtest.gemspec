@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.homepage    = "https://github.com/nstielau/varnishtest_cucumber"
   s.summary     = %q{Cucumber steps to easily create and execute varnishtest tests.}
   s.description = %q{Cucumber steps to easily create and execute varnishtest tests.}
+  s.licenses    = ['MIT']
 
   s.required_ruby_version = '>= 1.9.3'
 
