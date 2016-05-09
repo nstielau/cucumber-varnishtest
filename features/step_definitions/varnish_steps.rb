@@ -10,10 +10,6 @@ When(/^we (GET|POST) (.*)$/) do |method, path|
   VarnishTestContextManager.instance.request path, method
 end
 
-When(/^we send header (.*)=(.*)$/) do |header, value|
-  VarnishTestContextManager.instance.add_context "#{header}=#{value}"
-end
-
 Then(/^the response should be 200$/) do
   VarnishTestContextManager.instance.client_expect 'resp.status', 200
 end

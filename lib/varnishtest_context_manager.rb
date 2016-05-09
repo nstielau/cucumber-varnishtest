@@ -22,15 +22,6 @@ class VarnishTestContextManager
     @instance = nil
   end
 
-  def get_context
-    @context ||= []
-    return @context
-  end
-
-  def add_context(info)
-    get_context << info
-  end
-
   def request(path, method)
     @requests ||= []
     @requests << VarnishtestRequest.new(path, method)
