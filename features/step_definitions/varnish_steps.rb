@@ -6,7 +6,7 @@ Given(/^varnish running with (.*)$/) do |vcl_file|
   ContextManager.instance.vcl_file = vcl_file
 end
 
-When(/^we (GET|POST) (.*)$/) do |method, path|
+When(/^we (GET|PATCH|POST|PUT|DELETE) (.*)$/) do |method, path|
   ContextManager.instance.request path, method
 end
 
