@@ -27,44 +27,41 @@ You can use your own VCL and write your own features in a .feature file.
 Feature: Static Server Headers
 
   Scenario: Simple Single Request          # features/varnishtest.feature:3
-    Given varnish running with default.vcl # features/step_definitions/varnish_steps.rb:3
-    When we request /images.png            # features/step_definitions/varnish_steps.rb:7
-    Then the response code should be 200   # features/step_definitions/varnish_steps.rb:35
-    And it should pass varnishtest         # features/step_definitions/varnish_steps.rb:27
+    Given varnish running with example.vcl # features/step_definitions/varnish_steps.rb:4
+    When we GET /images.png                # features/step_definitions/varnish_steps.rb:9
+    Then the response code should be 200   # features/step_definitions/varnish_steps.rb:29
+    And it should pass varnishtest         # features/step_definitions/varnish_steps.rb:25
 
   Scenario: Checking Response Headers                              # features/varnishtest.feature:9
-    Given varnish running with default.vcl                         # features/step_definitions/varnish_steps.rb:3
-    When we request /images.png                                    # features/step_definitions/varnish_steps.rb:7
-    Then the response header X-Served-By should be "My App Server" # features/step_definitions/varnish_steps.rb:23
-    And it should pass varnishtest                                 # features/step_definitions/varnish_steps.rb:27
+    Given varnish running with example.vcl                         # features/step_definitions/varnish_steps.rb:4
+    When we GET /images.png                                        # features/step_definitions/varnish_steps.rb:9
+    Then the response header X-Served-By should be "My App Server" # features/step_definitions/varnish_steps.rb:21
+    And it should pass varnishtest                                 # features/step_definitions/varnish_steps.rb:25
 
-  Scenario: Multiple Requests              # features/varnishtest.feature:15
-    Given varnish running with default.vcl # features/step_definitions/varnish_steps.rb:3
-    When we request /images.png            # features/step_definitions/varnish_steps.rb:7
-    And we request /images.png             # features/step_definitions/varnish_steps.rb:7
-    Then there should be 1 cache hits      # features/step_definitions/varnish_steps.rb:39
-    And there should be 1 cache misses     # features/step_definitions/varnish_steps.rb:43
-    And it should pass varnishtest         # features/step_definitions/varnish_steps.rb:27
+  Scenario: POST should never be cached    # features/varnishtest.feature:15
+    Given varnish running with example.vcl # features/step_definitions/varnish_steps.rb:4
+    When we POST /form                     # features/step_definitions/varnish_steps.rb:9
+    Then there should be 1 passed requests # features/step_definitions/varnish_steps.rb:49
+    And it should pass varnishtest         # features/step_definitions/varnish_steps.rb:25
 
-  Scenario: Multiple Requests without warming # features/varnishtest.feature:23
-    Given varnish running with default.vcl    # features/step_definitions/varnish_steps.rb:3
-    When we request /images2.png              # features/step_definitions/varnish_steps.rb:7
-    And we request /images.png                # features/step_definitions/varnish_steps.rb:7
-    And we request /images.png                # features/step_definitions/varnish_steps.rb:7
-    Then there should be 2 cache misses       # features/step_definitions/varnish_steps.rb:43
-    Then there should be 1 cache hits         # features/step_definitions/varnish_steps.rb:39
-    And it should pass varnishtest            # features/step_definitions/varnish_steps.rb:27
+  Scenario: Multiple Requests without warming # features/varnishtest.feature:21
+    Given varnish running with example.vcl    # features/step_definitions/varnish_steps.rb:4
+    When we GET /images.png                   # features/step_definitions/varnish_steps.rb:9
+    And we GET /images2.png                   # features/step_definitions/varnish_steps.rb:9
+    And we GET /images2.png                   # features/step_definitions/varnish_steps.rb:9
+    Then there should be 2 cache misses       # features/step_definitions/varnish_steps.rb:41
+    Then there should be 1 cache hit          # features/step_definitions/varnish_steps.rb:37
+    And it should pass varnishtest            # features/step_definitions/varnish_steps.rb:25
 
-  Scenario: Check Dynamic header                                     # features/varnishtest.feature:32
-    Given varnish running with default.vcl                           # features/step_definitions/varnish_steps.rb:3
-    When we request /monalisa.png                                    # features/step_definitions/varnish_steps.rb:7
-    Then the response header X-Requested-URL should be /monalisa.png # features/step_definitions/varnish_steps.rb:23
-    And it should pass varnishtest                                   # features/step_definitions/varnish_steps.rb:27
+  Scenario: Check Dynamic header                                     # features/varnishtest.feature:30
+    Given varnish running with example.vcl                           # features/step_definitions/varnish_steps.rb:4
+    When we GET /monalisa.png                                        # features/step_definitions/varnish_steps.rb:9
+    Then the response header X-Requested-URL should be /monalisa.png # features/step_definitions/varnish_steps.rb:21
+    And it should pass varnishtest                                   # features/step_definitions/varnish_steps.rb:25
 
 5 scenarios (5 passed)
-25 steps (25 passed)
-0m7.568s
-
+23 steps (23 passed)
+0m7.467s
 ```
 
 ## How to use your own VCL

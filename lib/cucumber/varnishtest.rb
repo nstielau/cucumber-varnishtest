@@ -1,1 +1,1 @@
-require 'lib/cucumber/varnishtest/steps'
+require 'cucumber/varnishtest/steps'
