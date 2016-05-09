@@ -1,22 +1,25 @@
-# Varnishtest Cucumber
+# Cucumber Varnishtest
 
 This let's you use Gherkin, the language of BDD, to write behavior-level
 checks for your VCL.
 
 ## Project status
-This is currently a Proof of Concept.  
 
-I think this is probably the easiest/best way to get started with
-testing your Varnish config, but it might take a bit of extended as
-you test out your use-cases.  
+This project is now legit!
 
-Definitely fork and don't rely on this code not changing, though ;)
+Install the [Gem] (https://rubygems.org/gems/cucumber-varnishtest)
+and check out [this example](https://github.com/nstielau/cucumber-varnishtest-example)
+to get started.
 
-I'm working on getting this packaged as a ruby gem to further simplify
-the setup for getting testable VCLs.  Once it's packaged and versioned
-it should be in a sustainable, usable place.
+This is probably the easiest/best way to get started with testing your
+Varnish config.  However, the step definitions are not sufficient for
+complicated VCL use-cases.  PRs welcome ;)
 
-## To run
+If you do need to iterate on the steps, working directly out of a clone is
+likely easiest.  If you want to get started testing your VCL in CI like travis /
+ jenkins / CircleCI, using the steps packaged in the gem is probably easiest.
+
+## Examples
 
 To run, simply run `cucumber` from this directory.
 
@@ -64,33 +67,11 @@ Feature: Static Server Headers
 0m7.467s
 ```
 
-## Installation
+## Usage
 
 Check out [this example](https://github.com/nstielau/cucumber-varnishtest-example).
 
-Add the following line to your Gemfile, preferably in the test or cucumber group:
-
-```
-gem 'cucumber-varnishtest', :require => false
-```
-
-Then add the following line to your env.rb to make the step definitions available in your features:
-
-```
-require 'cucumber/varnishtest'
-```
-
-## How to use your own VCL
-
-Simply put the .vcl file in this directory, and specify in your
-`Given` clause of your Scenario:
-
-```
-Scenario: Multiple Requests without warming
-  Given varnish running with MyCustomConfig.vcl <==== YOUR VCL FILE
-  When we request /images.png
-  Then it should pass varnishtest
-```
+Or simply clone this repo and run `cucumber`
 
 ## Dependencies
 
