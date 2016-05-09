@@ -1,4 +1,4 @@
-class VarnishTestContextManager
+class ContextManager
   @instance = nil
 
   VARNISHTEST_FILE = "generated.varnishtest"
