@@ -10,8 +10,6 @@ class VarnishTestContextManager
   attr_writer :expected_piped_requests
   attr_writer :expected_passed_requests
 
-  attr_writer :vcl_file
-
   def self.instance()
     # Get instance from class
     @instance ||= self.new()
@@ -20,6 +18,11 @@ class VarnishTestContextManager
   def self.reset!
     # Clear out the instance, start fresh
     @instance = nil
+  end
+
+  def vcl_file=(vcl_file)
+    @vcl_file = vcl_file
+    raise "VCL file '#{vcl_file}' not found." unless File.exist?(vcl_file)
   end
 
   def request(path, method)
@@ -71,7 +74,7 @@ class VarnishTestContextManager
     output = `varnishtest #{VARNISHTEST_FILE}`
     result = $? == 0
 
-    File.open('varnishtest.err', 'w') do |file|
+    File.open('varnishtest.out', 'w') do |file|
       file.write(output)
     end
 
