@@ -12,6 +12,10 @@ you test out your use-cases.
 
 Definitely fork and don't rely on this code not changing, though ;)
 
+I'm working on getting this packaged as a ruby gem to further simplify
+the setup for getting testable VCLs.  Once it's packaged and versioned
+it should be in a sustainable, usable place.
+
 ## To run
 
 To run, simply run `cucumber` from this directory.
@@ -111,3 +115,8 @@ bundle exec cucumber --version
 Read more about varnish test at
 * http://www.clock.co.uk/blog/getting-started-with-varnishtest
 * http://blog.zenika.com/2012/08/27/introducing-varnishtest/
+
+## Thanks
+
+Thanks to
+* jayzes for examples on how to [package cucumber steps](http://github.com/jayzes/cucumber-api-steps)

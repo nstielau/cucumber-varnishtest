@@ -6,4 +6,6 @@ generated.varnishtest
 # varnishtest runs
 varnishtest.err
 
+pkg
+
 Gemfile.lock

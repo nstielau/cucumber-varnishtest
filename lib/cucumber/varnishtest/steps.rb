@@ -1,6 +1,3 @@
-require './lib/cucumber/varnishtest/context_manager'
-require './lib/cucumber/varnishtest/request'
-
 Given(/^varnish running with (.*)$/) do |vcl_file|
   # Load  a particular varnish VCL file
   VarnishTestContextManager.instance.vcl_file = vcl_file
