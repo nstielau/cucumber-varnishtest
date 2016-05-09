@@ -1,10 +1,11 @@
-# This is the .varnishtest file that is 
+# This is the .varnishtest file that is
 # generated via Cucumber.
 generated.varnishtest
 
 # This is the output of failed
 # varnishtest runs
 varnishtest.err
+varnishtest.out
 
 pkg
 

@@ -66,6 +66,8 @@ Feature: Static Server Headers
 
 ## Installation
 
+Check out [this example](https://github.com/nstielau/cucumber-varnishtest-example).
+
 Add the following line to your Gemfile, preferably in the test or cucumber group:
 
 ```
